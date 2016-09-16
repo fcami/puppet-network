@@ -8,6 +8,7 @@
 #   $bootproto     - optional - defaults to "dhcp"
 #   $userctl       - optional - defaults to false
 #   $stp           - optional - defaults to false
+#   $peerdns       - optional - defaults to false
 #   $delay         - optional - defaults to 30
 #   $bridging_opts - optional
 #
@@ -21,6 +22,7 @@
 #     ensure        => 'up',
 #     stp           => true,
 #     delay         => '0',
+#     peerdns       => true,
 #     bridging_opts => 'priority=65535',
 #   }
 #
@@ -39,6 +41,7 @@ define network::bridge::dynamic (
   $bootproto = 'dhcp',
   $userctl = false,
   $stp = false,
+  $peerdns = false,
   $delay = '30',
   $bridging_opts = undef
 ) {
@@ -48,6 +51,7 @@ define network::bridge::dynamic (
   # Validate booleans
   validate_bool($userctl)
   validate_bool($stp)
+  validate_bool($peerdns)
 
   ensure_packages('bridge-utils')
 
